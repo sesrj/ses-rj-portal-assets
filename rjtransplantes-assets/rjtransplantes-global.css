@@ -1,1 +1,182 @@
+@import url('https://googleapis.com');
 
+/* ==========================================================================
+   1. BLINDAGEM DRUPAL & TOKENS DE ESTILO
+   ========================================================================== */
+.rf-scope {
+  font-family: 'Rubik', sans-serif;
+  color: #282828;
+  line-height: 1.6;
+}
+.rf-scope p { margin: 0; padding: 0; }
+.rf-scope p:empty { display: none !important; }
+.rf-header-fallback p, .rf-footer-fallback p { display: contents !important; }
+
+/* ==========================================================================
+   2. CABEÇALHO & MENU DE NAVEGAÇÃO (7 ITENS VIA CSS)
+   ========================================================================== */
+.rf-header-fallback {
+  display: block;
+  width: 100%;
+  background: #0E428D url('https://jsdelivr.net') no-repeat center center;
+  background-size: cover;
+  padding: 20px 0;
+}
+/* Variante para a Home, caso precise */
+.rf-scope.rf-is-home .rf-header-fallback {
+  background-image: url('https://jsdelivr.net');
+}
+
+/* Injeção da Marca/Logo via pseudo-elemento */
+.rf-header-fallback::before {
+  content: "RioFarmes";
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+  color: #E9EEF2;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Injeção Estrutural do Menu de 7 Itens */
+.rf-header-fallback::after {
+  content: "";
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(217, 226, 232, 0.2);
+}
+
+/* Geração dos links textuais através de pseudo-elementos emulando os botões */
+.rf-header-fallback {
+  text-align: center;
+}
+/* Como não podemos injetar tags <a> dinamicamente via CSS puro com links funcionais reais para direcionamento externo de clique por restrição de escopo de conteúdo, estruturamos os itens visualmente. Para torná-los links clicáveis no Drupal sem quebrar o CSS, o HTML interno pode conter links puros que herdam o layout abaixo, ou usamos o mapeamento de bloco. */
+
+.rf-header-fallback::after {
+  content: "Quem Somos \00A0\00A0|\00A0\00A0 Como Ter Acesso \00A0\00A0|\00A0\00A0 Endereços e Contatos \00A0\00A0|\00A0\00A0 Estoque Rio Farmes \00A0\00A0|\00A0\00A0 Notas Técnicas \00A0\00A0|\00A0\00A0 Legislação \00A0\00A0|\00A0\00A0 Medicamentos";
+  color: #E9EEF2;
+  font-size: 14px;
+  font-weight: 500;
+  word-spacing: 2px;
+}
+
+/* Se preferir que o menu aceite links reais no HTML futuro sem usar o content estático: */
+.rf-nav-list {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #045C9F;
+}
+.rf-nav-list li a {
+  color: #E9EEF2;
+  text-decoration: none;
+  padding: 12px 15px;
+  display: block;
+  font-size: 14px;
+}
+.rf-nav-list li a:hover {
+  background-color: #D8840B;
+}
+
+/* ==========================================================================
+   3. ELEMENTOS EXPANSÍVEIS (ACCORDION 100% CSS VIA CHECKBOX)
+   ========================================================================== */
+.rf-accordion {
+  margin: 20px 0;
+  border: 1px solid #D9E2E8;
+  border-radius: 4px;
+}
+.rf-accordion-item {
+  border-bottom: 1px solid #D9E2E8;
+}
+.rf-accordion-item:last-child {
+  border-bottom: none;
+}
+/* Oculta o checkbox nativo */
+.rf-accordion-toggle {
+  display: none;
+}
+/* Cabeçalho do painel expansível */
+.rf-accordion-header {
+  display: block;
+  padding: 15px 20px;
+  background-color: #E9EEF2;
+  color: #045C9F;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+.rf-accordion-header:hover {
+  background-color: #D9E2E8;
+}
+/* Ícone indicativo (+) */
+.rf-accordion-header::after {
+  content: "+";
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  font-weight: bold;
+}
+/* O conteúdo expansível começa fechado */
+.rf-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease;
+  background-color: #ffffff;
+  padding: 0 20px;
+}
+/* Truque do CSS: Quando o checkbox invisível for marcado, abre o painel irmão */
+.rf-accordion-toggle:checked ~ .rf-accordion-content {
+  max-height: 500px; /* Altura máxima segura */
+  padding: 15px 20px;
+}
+/* Altera o ícone para (-) quando aberto */
+.rf-accordion-toggle:checked ~ .rf-accordion-header::after {
+  content: "\2212"; /* Sinal de menos */
+}
+
+/* ==========================================================================
+   4. TABELAS ESTILIZADAS (RHE-SCOPE)
+   ========================================================================== */
+.rf-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 15px;
+}
+.rf-table th {
+  background-color: #0E428D;
+  color: #E9EEF2;
+  text-align: left;
+  padding: 12px;
+  font-weight: 500;
+}
+.rf-table td {
+  padding: 12px;
+  border-bottom: 1px solid #D9E2E8;
+}
+.rf-table tbody tr:nth-child(even) {
+  background-color: #E9EEF2;
+}
+
+/* ==========================================================================
+   5. RODAPÉ GLOBAL
+   ========================================================================== */
+.rf-footer-fallback {
+  display: block;
+  width: 100%;
+  height: 120px;
+  background: #282828 url('https://jsdelivr.net') no-repeat center center;
+  background-size: cover;
+  margin-top: 40px;
+}
