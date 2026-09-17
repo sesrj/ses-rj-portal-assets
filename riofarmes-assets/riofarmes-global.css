@@ -1,1 +1,674 @@
-
+/* =============================================================
+   RIO FARMES
+   CSS — COMPONENTES REUTILIZÁVEIS
+   ============================================================= */
+/* =============================================================
+   01. TOKENS
+   ============================================================= */
+.rf-scope {
+  --rf-blue-dark: #0E428D;
+  --rf-blue-medium: #045C9F;
+  --rf-blue-light: #E9EEF2;
+  --rf-blue-border: #D9E2E8;
+  --rf-orange: #D8840B;
+  --rf-text-dark: #282828;
+  --rf-gray-muted: #9B9A9A;
+  --rf-white: #FFFFFF;
+  --rf-radius: 22px;
+  --rf-max-width: 1100px;
+  font-family: 'Rubik', sans-serif;
+  color: var(--rf-text-dark);
+  box-sizing: border-box;
+}
+/* =============================================================
+   02. RESET INTERNO
+   Protege contra estilos do Drupal
+   ============================================================= */
+.rf-scope *,
+.rf-scope *::before,
+.rf-scope *::after {
+  box-sizing: border-box;
+}
+.rf-scope p {
+  margin-top: 0 !important;
+  margin-bottom: 16px !important;
+}
+/*
+ * O editor Drupal pode transformar determinados elementos
+ * em:
+ *
+ * 
+<p>
+        
+    <div class="rf-grid">
+                ...
+            
+    </div>
+</p>
+ *
+ * ou:
+ *
+ * 
+<p>
+        <a class="rf-button">...</a>
+</p>
+ *
+ * O :has() permite neutralizar esse wrapper.
+ */
+.rf-scope p:has(> .rf-page-nav),
+.rf-scope p:has(> .rf-info-row),
+.rf-scope p:has(> .rf-data-list),
+.rf-scope p:has(> .rf-checklist),
+.rf-scope p:has(> .rf-dropdown),
+.rf-scope p:has(> .rf-button),
+.rf-scope p:has(> .rf-grid) {
+  display: contents !important;
+}
+/*
+ * Caso o Drupal coloque um parágrafo diretamente envolvendo
+ * uma estrutura de componente.
+ */
+.rf-scope > p:has(> header),
+.rf-scope > p:has(> main),
+.rf-scope > p:has(> section),
+.rf-scope > p:has(> footer) {
+  display: contents !important;
+}
+/* =============================================================
+   03. HEADER
+   ============================================================= */
+.rf-scope .rf-header {
+  position: relative;
+  min-height: 300px;
+  background-color: var(--rf-blue-dark);
+  /*
+   * ==========================================================
+   * CDN — HEADER INTERNO
+   *
+   * SUBSTITUA A URL ABAIXO PELA URL DO GITHUB/CDN:
+   *
+   * Header.png
+   * ==========================================================
+   */
+  background-image:
+    linear-gradient(
+      rgba(4, 92, 159, 0.82),
+      rgba(14, 66, 141, 0.94)
+    ),
+    url("URL-CDN-DO-HEADER.PNG");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--rf-white);
+}
+/*
+ * HOME
+ *
+ * Quando o container principal possuir:
+ *
+ * 
+<div class="rf-scope rf-is-home">
+         *
+         * será utilizado o mosaico de rostos.
+         */
+        .rf-scope.rf-is-home .rf-header {
+          /*
+           * ==========================================================
+           * CDN — FUNDO DA PÁGINA INICIAL
+           *
+           * SUBSTITUA PELA URL DO:
+           *
+           * Fundo da PP.png
+           * ==========================================================
+           */
+          background-image:
+            linear-gradient(
+              rgba(4, 92, 159, 0.78),
+              rgba(14, 66, 141, 0.92)
+            ),
+            url("URL-CDN-DO-FUNDO-DA-PP.PNG");
+        }
+        /* =============================================================
+           04. MENU SUPERIOR
+           ============================================================= */
+        .rf-scope .rf-header-nav {
+          width: min(960px, 92%);
+          margin: 0 auto;
+          min-height: 48px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 34px;
+          padding: 0 24px;
+          background: rgba(4, 54, 112, 0.78);
+          border-radius: 0 0 18px 18px;
+        }
+        .rf-scope .rf-header-nav a {
+          color: var(--rf-white);
+          text-decoration: none;
+          font-size: 12px;
+          font-weight: 500;
+          white-space: nowrap;
+          transition:
+            opacity 0.2s ease,
+            transform 0.2s ease;
+        }
+        .rf-scope .rf-header-nav a:hover {
+          opacity: 0.78;
+          transform: translateY(-1px);
+        }
+        /* =============================================================
+           05. MARCA
+           ============================================================= */
+        .rf-scope .rf-header-brand {
+          text-align: center;
+          padding: 48px 20px 34px;
+        }
+        .rf-scope .rf-logo {
+          font-size: clamp(38px, 5vw, 66px);
+          font-weight: 800;
+          line-height: 0.95;
+          letter-spacing: -3px;
+          color: var(--rf-white);
+        }
+        .rf-scope .rf-logo-rio {
+          font-weight: 500;
+        }
+        .rf-scope .rf-logo-farmes {
+          font-weight: 800;
+        }
+        .rf-scope .rf-logo-subtitle {
+          margin-top: 8px;
+          font-size: 12px;
+          letter-spacing: 0.2px;
+          font-weight: 400;
+        }
+        /* =============================================================
+           06. NAVEGAÇÃO DA PÁGINA
+           ============================================================= */
+        .rf-scope .rf-page-nav {
+          width: min(var(--rf-max-width), 90%);
+          margin: 24px auto 34px;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+        }
+        .rf-scope .rf-page-nav a {
+          min-height: 52px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px 18px;
+          background: var(--rf-blue-medium);
+          color: var(--rf-white);
+          border-radius: 5px;
+          text-align: center;
+          font-size: 11px;
+          line-height: 1.25;
+          font-weight: 500;
+          text-decoration: none;
+          transition:
+            background-color 0.2s ease,
+            transform 0.2s ease;
+        }
+        .rf-scope .rf-page-nav a:hover {
+          background: var(--rf-blue-dark);
+          transform: translateY(-1px);
+        }
+        /* =============================================================
+           07. INTRO
+           ============================================================= */
+        .rf-scope .rf-main {
+          width: 100%;
+        }
+        .rf-scope .rf-intro {
+          text-align: center;
+          padding: 4px 20px 20px;
+        }
+        .rf-scope .rf-intro h1 {
+          margin: 0;
+          color: var(--rf-blue-dark);
+          font-size: clamp(22px, 3vw, 34px);
+          line-height: 1.15;
+          font-weight: 800;
+        }
+        .rf-scope .rf-intro-question {
+          margin-top: 12px !important;
+          margin-bottom: 0 !important;
+          font-size: 14px;
+          font-weight: 700;
+          color: var(--rf-text-dark);
+        }
+        /* =============================================================
+           08. SEÇÃO AZUL
+           ============================================================= */
+        .rf-scope .rf-blue-section {
+          padding: 54px 20px 60px;
+          background:
+            linear-gradient(
+              rgba(14, 66, 141, 0.90),
+              rgba(14, 66, 141, 0.96)
+            ),
+            /*
+             * Pode utilizar Header.png novamente aqui,
+             * caso o design final mantenha o grafismo.
+             */
+            url("URL-CDN-DO-HEADER.PNG");
+          background-size: cover;
+          background-position: center;
+          color: var(--rf-white);
+        }
+        .rf-scope .rf-section-heading {
+          width: min(1000px, 90%);
+          margin: 0 auto 28px;
+          text-align: center;
+        }
+        .rf-scope .rf-section-heading h2 {
+          margin: 0 0 5px;
+          font-size: clamp(21px, 3vw, 30px);
+          line-height: 1.15;
+          font-weight: 800;
+        }
+        .rf-scope .rf-section-subtitle {
+          font-size: 13px;
+          margin-bottom: 18px;
+        }
+        .rf-scope .rf-section-heading p {
+          max-width: 820px;
+          margin-left: auto !important;
+          margin-right: auto !important;
+          font-size: 12px;
+          line-height: 1.5;
+        }
+        /* =============================================================
+           09. CARD BRANCO
+           ============================================================= */
+        .rf-scope .rf-white-card {
+          width: min(1000px, 90%);
+          margin: 0 auto;
+          padding: 34px 42px;
+          background: var(--rf-white);
+          color: var(--rf-text-dark);
+          border-radius: var(--rf-radius);
+          box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+        .rf-scope .rf-white-card h3 {
+          margin: 0 0 13px;
+          color: var(--rf-blue-dark);
+          font-size: 15px;
+          font-weight: 800;
+        }
+        .rf-scope .rf-document-list {
+          margin: 0 0 28px;
+          padding-left: 20px;
+        }
+        .rf-scope .rf-document-list li {
+          margin-bottom: 9px;
+          font-size: 12px;
+          line-height: 1.45;
+        }
+        /* =============================================================
+           10. BLOCOS INFORMATIVOS
+           ============================================================= */
+        .rf-scope .rf-info-section {
+          background: var(--rf-blue-dark);
+          color: var(--rf-white);
+          padding: 0 20px;
+        }
+        .rf-scope .rf-info-row {
+          width: min(var(--rf-max-width), 90%);
+          margin: 0 auto;
+          padding: 34px 0;
+          display: grid;
+          grid-template-columns: 38% 62%;
+          gap: 50px;
+          border-top: 1px solid rgba(255,255,255,0.20);
+        }
+        .rf-scope .rf-info-row:first-child {
+          border-top: none;
+        }
+        .rf-scope .rf-info-title h2 {
+          margin: 0;
+          font-size: clamp(18px, 2.2vw, 25px);
+          line-height: 1.1;
+          font-weight: 800;
+        }
+        .rf-scope .rf-info-note {
+          margin-top: 10px;
+          font-size: 11px;
+          font-weight: 500;
+        }
+        .rf-scope .rf-info-text {
+          font-size: 12px;
+          line-height: 1.5;
+        }
+        .rf-scope .rf-info-text p {
+          margin-bottom: 14px !important;
+        }
+        .rf-scope .rf-bullet-list {
+          margin: 0;
+          padding-left: 18px;
+        }
+        .rf-scope .rf-bullet-list li {
+          margin-bottom: 6px;
+        }
+        /* =============================================================
+           11. SEÇÕES DE LISTAS
+           ============================================================= */
+        .rf-scope .rf-list-section {
+          width: min(1050px, 90%);
+          margin: 0 auto;
+          padding: 52px 0 20px;
+        }
+        .rf-scope .rf-checklist-section {
+          padding-top: 34px;
+          padding-bottom: 60px;
+        }
+        .rf-scope .rf-list-heading {
+          text-align: center;
+          margin-bottom: 22px;
+        }
+        .rf-scope .rf-list-heading h2 {
+          margin: 0;
+          color: var(--rf-blue-dark);
+          font-size: clamp(19px, 2.7vw, 28px);
+          line-height: 1.2;
+          font-weight: 800;
+        }
+        .rf-scope .rf-list-heading p {
+          margin: 7px 0 0 !important;
+          color: var(--rf-gray-muted);
+          font-size: 11px;
+        }
+        /* =============================================================
+           12. DROPDOWN
+           ============================================================= */
+        .rf-scope .rf-dropdown {
+          border: none;
+          margin: 0;
+          background: transparent;
+        }
+        /*
+         * Remove o marcador padrão do <summary>.
+         */
+        .rf-scope .rf-dropdown summary {
+          list-style: none;
+          cursor: pointer;
+          width: 100%;
+          min-height: 40px;
+          padding: 10px 22px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 20px;
+          background: var(--rf-blue-medium);
+          color: var(--rf-white);
+          border-radius: 22px;
+          font-size: 10px;
+          font-weight: 500;
+          text-align: center;
+        }
+        .rf-scope .rf-dropdown summary::-webkit-details-marker {
+          display: none;
+        }
+        /* =============================================================
+           13. SETA
+           ============================================================= */
+        .rf-scope .rf-chevron {
+          width: 8px;
+          height: 8px;
+          border-right: 2px solid currentColor;
+          border-bottom: 2px solid currentColor;
+          transform: rotate(45deg);
+          transition: transform 0.2s ease;
+          flex: 0 0 auto;
+        }
+        .rf-scope .rf-dropdown[open] .rf-chevron {
+          transform: rotate(225deg);
+        }
+        /* =============================================================
+           14. CONTEÚDO DO DROPDOWN
+           ============================================================= */
+        .rf-scope .rf-dropdown-content {
+          background: var(--rf-white);
+          border-left: 1px solid var(--rf-blue-border);
+          border-right: 1px solid var(--rf-blue-border);
+          border-bottom: 1px solid var(--rf-blue-border);
+          padding: 0 18px;
+          overflow: hidden;
+        }
+        /* =============================================================
+           15. LISTA DE MEDICAMENTOS
+           ============================================================= */
+        .rf-scope .rf-data-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+        .rf-scope .rf-data-list li {
+          display: grid;
+          grid-template-columns: 210px 1fr;
+          gap: 20px;
+          padding: 8px 6px;
+          border-bottom: 1px solid var(--rf-blue-border);
+          font-size: 10px;
+          line-height: 1.4;
+        }
+        .rf-scope .rf-data-list li:last-child {
+          border-bottom: none;
+        }
+        .rf-scope .rf-data-list strong {
+          color: var(--rf-blue-dark);
+          font-weight: 800;
+        }
+        .rf-scope .rf-data-list span {
+          color: var(--rf-text-dark);
+        }
+        /* =============================================================
+           16. CHECKLIST
+           ============================================================= */
+        .rf-scope .rf-checklist {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+        .rf-scope .rf-checklist li {
+          padding: 7px 6px;
+          border-bottom: 1px solid var(--rf-blue-border);
+          color: var(--rf-blue-dark);
+          font-size: 10px;
+          line-height: 1.35;
+        }
+        .rf-scope .rf-checklist li:last-child {
+          border-bottom: none;
+        }
+        /* =============================================================
+           17. FOOTER
+           ============================================================= */
+        .rf-scope .rf-footer {
+          min-height: 150px;
+          padding: 45px 20px 25px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          color: var(--rf-white);
+          background-color: var(--rf-blue-dark);
+          /*
+           * ==========================================================
+           * CDN — FOOTER
+           *
+           * SUBSTITUA PELA URL DO:
+           *
+           * Footer.png
+           * ==========================================================
+           */
+          background-image: url("URL-CDN-DO-FOOTER.PNG");
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+        .rf-scope .rf-footer strong {
+          font-size: 14px;
+          line-height: 1.3;
+        }
+        .rf-scope .rf-footer span {
+          font-size: 12px;
+          line-height: 1.4;
+        }
+        /* =============================================================
+           18. RESPONSIVIDADE — TABLET
+           ============================================================= */
+        @media (max-width: 800px) {
+          .rf-scope .rf-header-nav {
+            gap: 15px;
+            overflow-x: auto;
+            justify-content: flex-start;
+          }
+          .rf-scope .rf-header-nav a {
+            font-size: 10px;
+          }
+          .rf-scope .rf-page-nav {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .rf-scope .rf-info-row {
+            grid-template-columns: 1fr;
+            gap: 18px;
+          }
+          .rf-scope .rf-data-list li {
+            grid-template-columns: 1fr;
+            gap: 3px;
+          }
+        }
+        /* =============================================================
+           19. RESPONSIVIDADE — CELULAR
+           ============================================================= */
+        @media (max-width: 600px) {
+          .rf-scope .rf-header {
+            min-height: 220px;
+          }
+          .rf-scope .rf-header-nav {
+            min-height: 40px;
+            padding: 0 12px;
+            border-radius: 0;
+          }
+          .rf-scope .rf-header-brand {
+            padding: 35px 15px 25px;
+          }
+          .rf-scope .rf-logo {
+            font-size: 42px;
+            letter-spacing: -2px;
+          }
+          .rf-scope .rf-logo-subtitle {
+            font-size: 9px;
+          }
+          .rf-scope .rf-page-nav {
+            width: 92%;
+            grid-template-columns: 1fr;
+            gap: 8px;
+          }
+          .rf-scope .rf-page-nav a {
+            min-height: 44px;
+          }
+          .rf-scope .rf-blue-section {
+            padding: 40px 12px;
+          }
+          .rf-scope .rf-white-card {
+            width: 94%;
+            padding: 25px 20px;
+            border-radius: 18px;
+          }
+          .rf-scope .rf-info-section {
+            padding: 0 12px;
+          }
+          .rf-scope .rf-info-row {
+            width: 94%;
+            padding: 28px 0;
+            grid-template-columns: 1fr;
+            gap: 14px;
+          }
+          .rf-scope .rf-list-section {
+            width: 94%;
+            padding-top: 38px;
+          }
+          .rf-scope .rf-dropdown summary {
+            padding: 9px 15px;
+            font-size: 9px;
+          }
+          .rf-scope .rf-dropdown-content {
+            padding: 0 8px;
+          }
+          .rf-scope .rf-data-list li {
+            padding: 9px 4px;
+            font-size: 9px;
+          }
+          .rf-scope .rf-checklist li {
+            font-size: 9px;
+            padding: 8px 4px;
+          }
+          .rf-scope .rf-footer {
+            min-height: 120px;
+            padding: 30px 15px 20px;
+          }
+          .rf-scope .rf-footer strong {
+            font-size: 11px;
+          }
+          .rf-scope .rf-footer span {
+            font-size: 9px;
+          }
+        }
+    /* ==========================================================================
+       GEMINI - AJUSTES FINOS DE ACABAMENTO (Correção do Layout Drupal Node 4214)
+       ========================================================================== */
+    /* 1. Ajuste do Menu Superior Flutuante */
+    .rf-scope .rf-nav {
+      background-color: rgba(6, 35, 75, 0.5) !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+      padding: 8px 24px !important;
+      border: none !important;
+    }
+    .rf-scope .rf-nav a {
+      padding: 8px 18px !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.8px !important;
+    }
+    /* 2. Ajuste Fino dos Cards de Documentação */
+    .rf-scope .rf-document-grid {
+      gap: 28px !important;
+      margin: 40px auto !important;
+    }
+    .rf-scope .rf-info-card {
+      padding: 36px !important;
+      border-radius: 16px !important;
+      box-shadow: 0 10px 30px rgba(14, 66, 141, 0.05) !important;
+    }
+    /* Respiro na seta laranja do link do card escuro */
+    .rf-scope .rf-text-link span {
+      margin-left: 8px !important;
+      font-size: 16px !important;
+      transition: transform 0.2s ease;
+    }
+    .rf-scope .rf-text-link:hover span {
+      transform: translateX(4px);
+    }
+    /* 3. Correção do Grid das Tabelas Internas (Accordions) */
+    .rf-scope .rf-long-list li {
+      grid-template-columns: 28% 1fr !important; /* Garante espaço para medicamentos longos */
+      padding: 16px 0 !important;
+      border-bottom: 1px solid rgba(217, 226, 232, 0.6) !important;
+    }
+    .rf-scope .rf-long-list strong {
+      font-size: 13px !important;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    /* Centralização do Botão de Fechar */
+    .rf-scope .rf-collapse-link {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px 24px !important;
+      letter-spacing: 0.5px;
+    }
